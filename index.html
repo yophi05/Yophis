@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodDash - Food Delivery Near You</title>
+    <meta name="description" content="Order food online from the best restaurants. Fast delivery, fresh food, right to your doorstep.">
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero {
+            margin-top: 70px;
+            min-height: 90vh;
+            background: var(--gradient-hero);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            top: -150px; right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 50%;
+            bottom: -100px; left: -100px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-content h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 span { color: var(--accent); }
+        .hero-content p {
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 35px;
+            max-width: 500px;
+        }
+        .hero-search {
+            background: white;
+            padding: 8px;
+            border-radius: 50px;
+            display: flex;
+            max-width: 520px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .hero-search i {
+            color: var(--primary);
+            font-size: 20px;
+            margin: 0 15px 0 20px;
+            align-self: center;
+        }
+        .hero-search input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            padding: 12px 0;
+        }
+        .hero-search button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-search button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+        }
+        .hero-image { position: relative; }
+        .hero-image img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+        }
+        .hero-badge {
+            position: absolute;
+            background: white;
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .hero-badge.badge-1 {
+            top: 20px; left: -30px;
+            animation: float 5s ease-in-out infinite;
+        }
+        .hero-badge.badge-2 {
+            bottom: 40px; right: -20px;
+            animation: float 7s ease-in-out infinite reverse;
+        }
+        .hero-badge img {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            animation: none;
+            box-shadow: none;
+        }
+        .hero-badge-text h4 { font-size: 14px; margin-bottom: 2px; }
+        .hero-badge-text p { font-size: 12px; color: var(--gray); }
+
+        .stats-section {
+            padding: 40px 5%;
+            background: white;
+        }
+        .stats-bar {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            padding: 40px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+        .stat-item { text-align: center; padding: 20px; }
+        .stat-item h3 {
+            font-size: 36px;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+        .stat-item p { color: var(--gray); font-weight: 500; font-size: 15px; }
+
+        .categories-section {
+            padding: 60px 5%;
+            background: var(--light);
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .section-header p { color: var(--gray); font-size: 18px; }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .category-card {
+            background: white;
+            padding: 30px 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: var(--dark);
+        }
+        .category-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+        .category-card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .category-card h4 { font-size: 16px; font-weight: 600; }
+
+        .cafes-section {
+            padding: 60px 5%;
+            background: white;
+        }
+        .cafes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .cafe-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s;
+            text-decoration: none;
+            color: var(--dark);
+            display: block;
+        }
+        .cafe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .cafe-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cafe-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .cafe-card:hover .cafe-image img { transform: scale(1.1); }
+        .cafe-badge-tag {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: var(--gradient-1);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .cafe-rating {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .cafe-rating i { color: var(--accent); }
+        .cafe-info { padding: 20px; }
+        .cafe-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .cafe-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .cafe-meta span { display: flex; align-items: center; gap: 5px; }
+        .cafe-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: var(--light);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .how-it-works {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+        .step-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.4s;
+            position: relative;
+        }
+        .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .step-number {
+            position: absolute;
+            top: -20px; left: 50%;
+            transform: translateX(-50%);
+            width: 50px; height: 50px;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+        .step-icon {
+            width: 80px; height: 80px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 20px;
+            font-size: 36px;
+            color: white;
+        }
+        .step-card h3 { font-size: 20px; margin-bottom: 10px; }
+        .step-card p { color: var(--gray); line-height: 1.6; font-size: 15px; }
+
+        .cta-section {
+            padding: 100px 5%;
+            background: var(--dark);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: rgba(255,107,107,0.1);
+            border-radius: 50%;
+            top: -100px; left: -100px;
+        }
+        .cta-section h2 {
+            font-size: 48px;
+            color: white;
+            font-weight: 800;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .cta-section p {
+            color: rgba(255,255,255,0.7);
+            font-size: 20px;
+            margin-bottom: 35px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 2;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content h1 { font-size: 40px; }
+            .hero-search { flex-direction: column; border-radius: var(--radius); }
+            .hero-search button { width: 100%; }
+            .hero-image { display: none; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); padding: 20px; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .cta-section h2 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="pages/cafes.html">Restaurants</a></li>
+            <li><a href="pages/about.html">About</a></li>
+            <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="pages/login.html" class="btn btn-outline">Sign In</a>
+            <a href="pages/register.html" class="btn btn-primary">Sign Up</a>
+            <button class="cart-btn" onclick="location.href='pages/cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Discover the <span>Best Food</span> Delivered to Your Door</h1>
+                <p>Order from top-rated local restaurants. Fresh, hot, and delivered in minutes. Your cravings, our mission.</p>
+                <div class="hero-search">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" placeholder="Enter your delivery address..." id="addressInput">
+                    <button onclick="findFood()">Find Food</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600" alt="Delicious Food">
+                <div class="hero-badge badge-1">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=100" alt="Burger">
+                    <div class="hero-badge-text">
+                        <h4>Just Ordered!</h4>
+                        <p>Classic Cheeseburger</p>
+                    </div>
+                </div>
+                <div class="hero-badge badge-2">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=100" alt="Pizza">
+                    <div class="hero-badge-text">
+                        <h4>Top Rated</h4>
+                        <p>Margherita Pizza</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-bar">
+            <div class="stat-item"><h3>500+</h3><p>Partner Restaurants</p></div>
+            <div class="stat-item"><h3>15 min</h3><p>Avg. Delivery Time</p></div>
+            <div class="stat-item"><h3>50K+</h3><p>Happy Customers</p></div>
+            <div class="stat-item"><h3>4.9</h3><p>App Rating</p></div>
+        </div>
+    </section>
+
+    <section class="categories-section">
+        <div class="section-header">
+            <h2>Popular Categories</h2>
+            <p>Explore cuisines you'll love</p>
+        </div>
+        <div class="categories-grid">
+            <a href="pages/cafes.html?category=burger" class="category-card">
+                <i class="fas fa-hamburger" style="color: #FF6B6B;"></i>
+                <h4>Burgers</h4>
+            </a>
+            <a href="pages/cafes.html?category=pizza" class="category-card">
+                <i class="fas fa-pizza-slice" style="color: #e74c3c;"></i>
+                <h4>Pizza</h4>
+            </a>
+            <a href="pages/cafes.html?category=asian" class="category-card">
+                <i class="fas fa-bowl-rice" style="color: #4ECDC4;"></i>
+                <h4>Asian</h4>
+            </a>
+            <a href="pages/cafes.html?category=coffee" class="category-card">
+                <i class="fas fa-coffee" style="color: #8B4513;"></i>
+                <h4>Coffee</h4>
+            </a>
+            <a href="pages/cafes.html?category=dessert" class="category-card">
+                <i class="fas fa-ice-cream" style="color: #f093fb;"></i>
+                <h4>Desserts</h4>
+            </a>
+            <a href="pages/cafes.html?category=healthy" class="category-card">
+                <i class="fas fa-leaf" style="color: #44A08D;"></i>
+                <h4>Healthy</h4>
+            </a>
+        </div>
+    </section>
+
+    <section class="cafes-section">
+        <div class="section-header">
+            <h2>Featured Restaurants</h2>
+            <p>Top-rated places near you</p>
+        </div>
+        <div class="cafes-grid">
+            <a href="pages/menu.html?id=1" class="cafe-card">
+                <div class="cafe-image">
+                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400" alt="Burger Kingpin">
+                    <span class="cafe-badge-tag">FREE DELIVERY</span>
+                    <div class="cafe-rating"><i class="fas fa-star"></i> 4.8</div>
+                </div>
+                <div class="cafe-info">
+                    <h3>Burger Kingpin</h3>
+                    <div class="cafe-meta">
+                        <span><i class="fas fa-clock"></i> 15-25 min</span>
+                        <span><i class="fas fa-motorcycle"></i> Free</span>
+                    </div>
+                    <div class="cafe-tags">
+                        <span class="tag">American</span>
+                        <span class="tag">Burgers</span>
+                        <span class="tag">Fast Food</span>
+                    </div>
+                </div>
+            </a>
+            <a href="pages/menu.html?id=2" class="cafe-card">
+                <div class="cafe-image">
+                    <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400" alt="Pizza Palace">
+                    <span class="cafe-badge-tag">POPULAR</span>
+                    <div class="cafe-rating"><i class="fas fa-star"></i> 4.9</div>
+                </div>
+                <div class="cafe-info">
+                    <h3>Pizza Palace</h3>
+                    <div class="cafe-meta">
+                        <span><i class="fas fa-clock"></i> 20-35 min</span>
+                        <span><i class="fas fa-motorcycle"></i> $1.99</span>
+                    </div>
+                    <div class="cafe-tags">
+                        <span class="tag">Italian</span>
+                        <span class="tag">Pizza</span>
+                        <span class="tag">Pasta</span>
+                    </div>
+                </div>
+            </a>
+            <a href="pages/menu.html?id=3" class="cafe-card">
+                <div class="cafe-image">
+                    <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400" alt="Sakura Sushi">
+                    <span class="cafe-badge-tag">HEALTHY</span>
+                    <div class="cafe-rating"><i class="fas fa-star"></i> 4.7</div>
+                </div>
+                <div class="cafe-info">
+                    <h3>Sakura Sushi</h3>
+                    <div class="cafe-meta">
+                        <span><i class="fas fa-clock"></i> 25-40 min</span>
+                        <span><i class="fas fa-motorcycle"></i> $2.99</span>
+                    </div>
+                    <div class="cafe-tags">
+                        <span class="tag">Japanese</span>
+                        <span class="tag">Sushi</span>
+                        <span class="tag">Healthy</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="pages/cafes.html" class="btn btn-primary btn-lg">View All Restaurants <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>Get your favorite food in 4 simple steps</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-icon" style="background: var(--gradient-1);"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>Set Location</h3>
+                <p>Enter your address to find restaurants that deliver to you</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-icon" style="background: var(--gradient-2);"><i class="fas fa-utensils"></i></div>
+                <h3>Choose Food</h3>
+                <p>Browse menus, read reviews, and pick your favorites</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-icon" style="background: var(--gradient-hero);"><i class="fas fa-credit-card"></i></div>
+                <h3>Pay Securely</h3>
+                <p>Card, mobile wallet, or cash on delivery - your choice</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <div class="step-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"><i class="fas fa-shipping-fast"></i></div>
+                <h3>Fast Delivery</h3>
+                <p>Track your order in real-time until it reaches your door</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to Order?</h2>
+        <p>Join thousands of happy customers and get your first delivery today</p>
+        <div class="cta-buttons">
+            <a href="pages/register.html" class="btn btn-primary btn-lg">Get Started <i class="fas fa-arrow-right"></i></a>
+            <a href="pages/cafes.html" class="btn btn-outline btn-lg" style="color: white; border-color: rgba(255,255,255,0.3);">Browse Menu</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-bolt"></i> FoodDash</h3>
+                <p>Your favorite food delivery partner. Fresh, fast, and always on time. Serving delicious moments since 2024.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="pages/about.html">About Us</a>
+                <a href="pages/cafes.html">Restaurants</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="pages/contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Feedback</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Refund Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 FoodDash. All rights reserved.</p>
+            <div class="app-badges">
+                <a href="#" class="app-badge"><i class="fab fa-apple"></i> App Store</a>
+                <a href="#" class="app-badge"><i class="fab fa-google-play"></i> Play Store</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Welcome to FoodDash!</span>
+    </div>
+
+    <script>
+        function findFood() {
+            const address = document.getElementById('addressInput').value;
+            if(address.trim()) {
+                localStorage.setItem('deliveryAddress', address);
+                window.location.href = 'pages/cafes.html';
+            } else {
+                showToast('Please enter your delivery address');
+            }
+        }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>

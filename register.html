@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FoodDash</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+        }
+        .auth-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -100px; right: -100px;
+        }
+        .auth-left h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .auth-left p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .auth-left .features {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .auth-left .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.15);
+            padding: 15px 25px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        .auth-left .feature-item i {
+            font-size: 24px;
+        }
+        .auth-right {
+            flex: 1;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+        .auth-box {
+            width: 100%;
+            max-width: 420px;
+        }
+        .auth-box .logo {
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .auth-box h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .auth-box .subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .social-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+        .terms input {
+            width: 18px; height: 18px;
+            accent-color: var(--primary);
+            margin-top: 2px;
+        }
+        .terms a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .terms a:hover { text-decoration: underline; }
+        .auth-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .auth-footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .auth-page { flex-direction: column; }
+            .auth-left { padding: 40px 20px; min-height: 300px; }
+            .auth-left h1 { font-size: 32px; }
+            .auth-right { padding: 40px 20px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-left">
+            <h1>Join FoodDash!</h1>
+            <p>Create your account and start ordering delicious food from the best restaurants near you.</p>
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-gift"></i>
+                    <span>First order discount: 20% OFF</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Average delivery: 15 minutes</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-heart"></i>
+                    <span>Save your favorite orders</span>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-box">
+                <a href="../index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+                <h2>Create Account</h2>
+                <p class="subtitle">Join thousands of happy food lovers</p>
+
+                <div class="social-login">
+                    <button class="social-btn" onclick="socialRegister('google')">
+                        <i class="fab fa-google" style="color: #DB4437;"></i> Google
+                    </button>
+                    <button class="social-btn" onclick="socialRegister('apple')">
+                        <i class="fab fa-apple" style="color: #000;"></i> Apple
+                    </button>
+                </div>
+
+                <div class="divider">or sign up with email</div>
+
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Min. 8 characters" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Repeat password" required>
+                    </div>
+                    <div class="terms">
+                        <input type="checkbox" id="agree" required>
+                        <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Already have an account? <a href="login.html">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Account created!</span>
+    </div>
+
+    <script>
+        function handleRegister(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                showToast('Passwords do not match!');
+                return;
+            }
+
+            if (password.length < 8) {
+                showToast('Password must be at least 8 characters');
+                return;
+            }
+
+            // Simulate registration
+            localStorage.setItem('user', JSON.stringify({
+                email: email,
+                name: firstName + ' ' + lastName,
+                loggedIn: true
+            }));
+
+            showToast('Account created! Welcome to FoodDash!');
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 2000);
+        }
+
+        function socialRegister(provider) {
+            showToast(`Creating account with ${provider}...`);
+            setTimeout(() => {
+                localStorage.setItem('user', JSON.stringify({
+                    email: 'user@' + provider + '.com',
+                    name: 'New User',
+                    loggedIn: true
+                }));
+                window.location.href = '../index.html';
+            }, 1500);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>

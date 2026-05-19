@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - FoodDash</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .auth-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-left::before {
+            content: '';
+            position: absolute;
+            width: 500px; height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -100px; right: -100px;
+        }
+        .auth-left h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .auth-left p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .auth-left .features {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .auth-left .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.15);
+            padding: 15px 25px;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+        .auth-left .feature-item i {
+            font-size: 24px;
+        }
+        .auth-right {
+            flex: 1;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+        .auth-box {
+            width: 100%;
+            max-width: 420px;
+        }
+        .auth-box .logo {
+            justify-content: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .auth-box h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .auth-box .subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        .social-login {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Poppins', sans-serif;
+        }
+        .social-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .remember-me input {
+            width: 18px; height: 18px;
+            accent-color: var(--primary);
+        }
+        .forgot-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .forgot-link:hover { text-decoration: underline; }
+        .auth-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .auth-footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .auth-page { flex-direction: column; }
+            .auth-left { padding: 40px 20px; min-height: 300px; }
+            .auth-left h1 { font-size: 32px; }
+            .auth-right { padding: 40px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-left">
+            <h1>Welcome Back!</h1>
+            <p>Sign in to continue your food journey. Thousands of delicious meals are waiting for you.</p>
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Lightning fast delivery</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-star"></i>
+                    <span>Top-rated restaurants</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure payments</span>
+                </div>
+            </div>
+        </div>
+        <div class="auth-right">
+            <div class="auth-box">
+                <a href="../index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+                <h2>Sign In</h2>
+                <p class="subtitle">Enter your credentials to access your account</p>
+
+                <div class="social-login">
+                    <button class="social-btn" onclick="socialLogin('google')">
+                        <i class="fab fa-google" style="color: #DB4437;"></i> Google
+                    </button>
+                    <button class="social-btn" onclick="socialLogin('apple')">
+                        <i class="fab fa-apple" style="color: #000;"></i> Apple
+                    </button>
+                </div>
+
+                <div class="divider">or sign in with email</div>
+
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember">
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fas fa-sign-in-alt"></i> Sign In
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    Don't have an account? <a href="register.html">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Welcome back!</span>
+    </div>
+
+    <script>
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Simulate login
+            localStorage.setItem('user', JSON.stringify({
+                email: email,
+                name: email.split('@')[0],
+                loggedIn: true
+            }));
+
+            showToast('Welcome back! Redirecting...');
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 1500);
+        }
+
+        function socialLogin(provider) {
+            showToast(`Signing in with ${provider}...`);
+            setTimeout(() => {
+                localStorage.setItem('user', JSON.stringify({
+                    email: 'user@' + provider + '.com',
+                    name: 'User',
+                    loggedIn: true
+                }));
+                window.location.href = '../index.html';
+            }, 1500);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>

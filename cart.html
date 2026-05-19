@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - FoodDash</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cart-page {
+            margin-top: 70px;
+            padding: 40px 5% 80px;
+            background: var(--light);
+            min-height: calc(100vh - 70px);
+        }
+        .cart-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .cart-container h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .cart-container h1 i {
+            color: var(--primary);
+        }
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        .cart-items {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: var(--radius);
+            object-fit: cover;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .cart-item-details h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .cart-item-details p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--light);
+            border-radius: 10px;
+            padding: 5px;
+        }
+        .quantity-control button {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .quantity-control button:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .remove-btn {
+            color: #e74c3c;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s;
+        }
+        .remove-btn:hover {
+            transform: scale(1.2);
+        }
+        .cart-summary {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+        }
+        .cart-summary h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .summary-row.total {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            padding-top: 15px;
+            border-top: 2px dashed #ddd;
+            margin-top: 15px;
+        }
+        .checkout-btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--gray);
+        }
+        .empty-cart i {
+            font-size: 80px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .empty-cart h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        .delivery-address {
+            background: var(--light);
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .delivery-address i {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .cart-layout { grid-template-columns: 1fr; }
+            .cart-summary { position: static; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="cafes.html">Restaurants</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="login.html" class="btn btn-outline">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+            <button class="cart-btn" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="cart-page">
+        <div class="cart-container">
+            <h1><i class="fas fa-shopping-bag"></i> Your Cart</h1>
+            <div class="cart-layout" id="cartLayout">
+                <!-- Loaded by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-bolt"></i> FoodDash</h3>
+                <p>Your favorite food delivery partner. Fresh, fast, and always on time.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="cafes.html">Restaurants</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Feedback</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Refund Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 FoodDash. All rights reserved.</p>
+            <div class="app-badges">
+                <a href="#" class="app-badge"><i class="fab fa-apple"></i> App Store</a>
+                <a href="#" class="app-badge"><i class="fab fa-google-play"></i> Play Store</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Cart updated!</span>
+    </div>
+
+    <script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const layout = document.getElementById('cartLayout');
+            const address = localStorage.getItem('deliveryAddress') || 'Enter your delivery address';
+
+            if (cart.length === 0) {
+                layout.innerHTML = `
+                    <div class="empty-cart" style="grid-column: 1 / -1;">
+                        <i class="fas fa-shopping-basket"></i>
+                        <h2>Your cart is empty</h2>
+                        <p>Add some delicious food to get started!</p>
+                        <a href="cafes.html" class="btn btn-primary btn-lg" style="margin-top: 20px;">
+                            <i class="fas fa-utensils"></i> Browse Restaurants
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = subtotal > 20 ? 0 : 2.99;
+            const tax = subtotal * 0.08;
+            const total = subtotal + deliveryFee + tax;
+
+            layout.innerHTML = `
+                <div class="cart-items">
+                    <div class="delivery-address">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${address}</span>
+                    </div>
+                    ${cart.map((item, index) => `
+                        <div class="cart-item">
+                            <img src="${item.image}" alt="${item.name}">
+                            <div class="cart-item-details">
+                                <h3>${item.name}</h3>
+                                <p>${item.cafe}</p>
+                                <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                            </div>
+                            <div class="cart-item-actions">
+                                <div class="quantity-control">
+                                    <button onclick="changeQuantity(${index}, -1)">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button onclick="changeQuantity(${index}, 1)">+</button>
+                                </div>
+                                <button class="remove-btn" onclick="removeItem(${index})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery Fee</span>
+                        <span>${deliveryFee === 0 ? 'FREE' : '$' + deliveryFee.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax (8%)</span>
+                        <span>$${tax.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>$${total.toFixed(2)}</span>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-lg checkout-btn" onclick="checkout()">
+                        <i class="fas fa-lock"></i> Place Order
+                    </button>
+                    <p style="text-align: center; margin-top: 15px; font-size: 13px; color: var(--gray);">
+                        <i class="fas fa-shield-alt"></i> Secure SSL Encrypted Checkout
+                    </p>
+                </div>
+            `;
+        }
+
+        function changeQuantity(index, delta) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            updateCartCount();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            updateCartCount();
+            showToast('Item removed from cart');
+        }
+
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = subtotal > 20 ? 0 : 2.99;
+            const tax = subtotal * 0.08;
+            const total = subtotal + deliveryFee + tax;
+
+            showToast(`Order placed! Total: $${total.toFixed(2)}. Your food is on the way!`);
+            localStorage.removeItem('cart');
+            setTimeout(() => {
+                window.location.href = '../index.html';
+            }, 2000);
+        }
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        renderCart();
+        updateCartCount();
+    </script>
+</body>
+</html>

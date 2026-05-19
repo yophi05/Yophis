@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - FoodDash</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-hero {
+            margin-top: 70px;
+            padding: 80px 5%;
+            background: var(--gradient-hero);
+            text-align: center;
+            color: white;
+        }
+        .contact-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+        .contact-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-section {
+            padding: 60px 5% 80px;
+            background: var(--light);
+        }
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-info h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .contact-info > p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+        .contact-method:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-hover);
+        }
+        .contact-method i {
+            width: 50px; height: 50px;
+            border-radius: 14px;
+            background: var(--gradient-1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .contact-method h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .contact-method p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+        .contact-form-wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+        }
+        .contact-form-wrapper h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .faq-section {
+            padding: 80px 5%;
+            background: white;
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1000px;
+            margin: 50px auto 0;
+        }
+        .faq-item {
+            background: var(--light);
+            padding: 25px;
+            border-radius: var(--radius);
+        }
+        .faq-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .faq-item h4 i {
+            color: var(--primary);
+        }
+        .faq-item p {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero h1 { font-size: 36px; }
+            .contact-layout { grid-template-columns: 1fr; }
+            .faq-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="cafes.html">Restaurants</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="login.html" class="btn btn-outline">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+            <button class="cart-btn" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="contact-hero">
+        <h1>Get in Touch</h1>
+        <p>Have a question, feedback, or need help? We're here for you 24/7.</p>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-layout">
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                <p>Our team is ready to assist you with any questions about orders, deliveries, or partnerships.</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Phone Support</h4>
+                            <p>+1 (800) 555-FOOD<br>Available 24/7</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>support@fooddash.com<br>help@fooddash.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Headquarters</h4>
+                            <p>123 Delivery Street<br>San Francisco, CA 94102</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <h4>Live Chat</h4>
+                            <p>Chat with us in the app<br>Average response: 2 min</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-wrapper">
+                <h2>Send us a Message</h2>
+                <form onsubmit="handleContact(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="order">Order Issue</option>
+                            <option value="delivery">Delivery Problem</option>
+                            <option value="account">Account Help</option>
+                            <option value="partner">Become a Partner</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" placeholder="Tell us how we can help you..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <i class="fas fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-header">
+            <h2>Frequently Asked Questions</h2>
+            <p>Quick answers to common questions</p>
+        </div>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> How long does delivery take?</h4>
+                <p>Our average delivery time is 15-25 minutes depending on your location and restaurant preparation time. You can track your order in real-time through our app.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> What if my order is wrong?</h4>
+                <p>We apologize for any mistakes! Contact our support team immediately via chat or phone, and we'll make it right with a refund or replacement.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Can I schedule a delivery?</h4>
+                <p>Yes! During checkout, select "Schedule Delivery" and choose your preferred time slot up to 7 days in advance.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> How do I become a partner restaurant?</h4>
+                <p>We're always looking for great restaurants! Fill out our partnership form or email partners@fooddash.com and our team will reach out within 48 hours.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-bolt"></i> FoodDash</h3>
+                <p>Your favorite food delivery partner. Fresh, fast, and always on time.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="cafes.html">Restaurants</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Feedback</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Refund Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 FoodDash. All rights reserved.</p>
+            <div class="app-badges">
+                <a href="#" class="app-badge"><i class="fab fa-apple"></i> App Store</a>
+                <a href="#" class="app-badge"><i class="fab fa-google-play"></i> Play Store</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Message sent!</span>
+    </div>
+
+    <script>
+        function handleContact(e) {
+            e.preventDefault();
+            showToast('Message sent! We'll get back to you within 24 hours.');
+            e.target.reset();
+        }
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>

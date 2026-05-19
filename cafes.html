@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants - FoodDash</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .page-header {
+            margin-top: 70px;
+            padding: 60px 5%;
+            background: var(--gradient-hero);
+            text-align: center;
+            color: white;
+        }
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .filter-bar {
+            padding: 30px 5%;
+            background: white;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 10px 24px;
+            border-radius: 50px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            border-color: var(--primary);
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--light);
+            border-radius: 50px;
+            padding: 5px 20px;
+            flex: 1;
+            max-width: 400px;
+        }
+        .search-box i {
+            color: var(--gray);
+            margin-right: 10px;
+        }
+        .search-box input {
+            border: none;
+            background: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            width: 100%;
+            padding: 10px 0;
+        }
+        .restaurants-section {
+            padding: 40px 5% 80px;
+            background: var(--light);
+        }
+        .restaurants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .restaurant-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.4s;
+            text-decoration: none;
+            color: var(--dark);
+            display: block;
+        }
+        .restaurant-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .restaurant-image {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+        .restaurant-image img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .restaurant-card:hover .restaurant-image img { transform: scale(1.1); }
+        .restaurant-badge {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: var(--gradient-1);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .restaurant-rating {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(255,255,255,0.95);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .restaurant-rating i { color: var(--accent); }
+        .restaurant-info { padding: 20px; }
+        .restaurant-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .restaurant-meta {
+            display: flex;
+            gap: 15px;
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .restaurant-meta span { display: flex; align-items: center; gap: 5px; }
+        .restaurant-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: var(--light);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--gray);
+        }
+        .no-results i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 32px; }
+            .filter-bar { flex-direction: column; }
+            .search-box { max-width: 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="cafes.html" class="active">Restaurants</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="login.html" class="btn btn-outline">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+            <button class="cart-btn" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>All Restaurants</h1>
+        <p>Discover the best food from over 500 restaurants</p>
+    </div>
+
+    <div class="filter-bar">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search restaurants..." id="searchInput" onkeyup="filterRestaurants()">
+        </div>
+        <button class="filter-btn active" onclick="filterCategory('all')" id="btn-all">
+            <i class="fas fa-utensils"></i> All
+        </button>
+        <button class="filter-btn" onclick="filterCategory('burger')" id="btn-burger">
+            <i class="fas fa-hamburger"></i> Burgers
+        </button>
+        <button class="filter-btn" onclick="filterCategory('pizza')" id="btn-pizza">
+            <i class="fas fa-pizza-slice"></i> Pizza
+        </button>
+        <button class="filter-btn" onclick="filterCategory('asian')" id="btn-asian">
+            <i class="fas fa-bowl-rice"></i> Asian
+        </button>
+        <button class="filter-btn" onclick="filterCategory('coffee')" id="btn-coffee">
+            <i class="fas fa-coffee"></i> Coffee
+        </button>
+        <button class="filter-btn" onclick="filterCategory('dessert')" id="btn-dessert">
+            <i class="fas fa-ice-cream"></i> Desserts
+        </button>
+        <button class="filter-btn" onclick="filterCategory('healthy')" id="btn-healthy">
+            <i class="fas fa-leaf"></i> Healthy
+        </button>
+    </div>
+
+    <section class="restaurants-section">
+        <div class="restaurants-grid" id="restaurantsGrid">
+            <!-- Restaurants will be loaded by JavaScript -->
+        </div>
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No restaurants found</h3>
+            <p>Try adjusting your search or filters</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-bolt"></i> FoodDash</h3>
+                <p>Your favorite food delivery partner. Fresh, fast, and always on time.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="cafes.html">Restaurants</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Feedback</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Refund Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 FoodDash. All rights reserved.</p>
+            <div class="app-badges">
+                <a href="#" class="app-badge"><i class="fab fa-apple"></i> App Store</a>
+                <a href="#" class="app-badge"><i class="fab fa-google-play"></i> Play Store</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Restaurants loaded!</span>
+    </div>
+
+    <script>
+        const restaurants = [
+            { id: 1, name: "Burger Kingpin", cuisine: "Burgers", category: "burger", rating: 4.8, time: "15-25 min", delivery: "Free", image: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400", tags: ["American", "Fast Food", "Bestseller"] },
+            { id: 2, name: "Pizza Palace", cuisine: "Italian", category: "pizza", rating: 4.9, time: "20-35 min", delivery: "$1.99", image: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=400", tags: ["Italian", "Pizza", "Popular"] },
+            { id: 3, name: "Sakura Sushi", cuisine: "Japanese", category: "asian", rating: 4.7, time: "25-40 min", delivery: "$2.99", image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400", tags: ["Japanese", "Sushi", "Healthy"] },
+            { id: 4, name: "Brew & Bean", cuisine: "Coffee Shop", category: "coffee", rating: 4.6, time: "10-20 min", delivery: "Free", image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400", tags: ["Coffee", "Breakfast", "Cafe"] },
+            { id: 5, name: "Sweet Dreams", cuisine: "Desserts", category: "dessert", rating: 4.9, time: "15-25 min", delivery: "$1.99", image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=400", tags: ["Desserts", "Cakes", "Sweet"] },
+            { id: 6, name: "Green Bowl", cuisine: "Healthy", category: "healthy", rating: 4.5, time: "15-25 min", delivery: "Free", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400", tags: ["Healthy", "Salads", "Vegan"] },
+            { id: 7, name: "Taco Fiesta", cuisine: "Mexican", category: "burger", rating: 4.6, time: "20-30 min", delivery: "$1.99", image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400", tags: ["Mexican", "Tacos", "Spicy"] },
+            { id: 8, name: "Pasta House", cuisine: "Italian", category: "pizza", rating: 4.7, time: "25-35 min", delivery: "$2.99", image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400", tags: ["Italian", "Pasta", "Wine"] },
+            { id: 9, name: "Thai Spice", cuisine: "Thai", category: "asian", rating: 4.8, time: "30-45 min", delivery: "$2.99", image: "https://images.unsplash.com/photo-1559314809-0d155014e29e?w=400", tags: ["Thai", "Spicy", "Curry"] }
+        ];
+
+        let currentCategory = 'all';
+        let searchTerm = '';
+
+        function renderRestaurants() {
+            const grid = document.getElementById('restaurantsGrid');
+            const noResults = document.getElementById('noResults');
+
+            let filtered = restaurants;
+
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(r => r.category === currentCategory);
+            }
+
+            if (searchTerm) {
+                filtered = filtered.filter(r => 
+                    r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    r.cuisine.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    r.tags.some(t => t.toLowerCase().includes(searchTerm.toLowerCase()))
+                );
+            }
+
+            if (filtered.length === 0) {
+                grid.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                grid.style.display = 'grid';
+                noResults.style.display = 'none';
+
+                grid.innerHTML = filtered.map(r => `
+                    <a href="menu.html?id=${r.id}" class="restaurant-card fade-in">
+                        <div class="restaurant-image">
+                            <img src="${r.image}" alt="${r.name}" loading="lazy">
+                            <span class="restaurant-badge">${r.delivery === 'Free' ? 'FREE DELIVERY' : 'FAST DELIVERY'}</span>
+                            <div class="restaurant-rating"><i class="fas fa-star"></i> ${r.rating}</div>
+                        </div>
+                        <div class="restaurant-info">
+                            <h3>${r.name}</h3>
+                            <div class="restaurant-meta">
+                                <span><i class="fas fa-clock"></i> ${r.time}</span>
+                                <span><i class="fas fa-motorcycle"></i> ${r.delivery}</span>
+                            </div>
+                            <div class="restaurant-tags">
+                                ${r.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+            }
+        }
+
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + category).classList.add('active');
+            renderRestaurants();
+        }
+
+        function filterRestaurants() {
+            searchTerm = document.getElementById('searchInput').value;
+            renderRestaurants();
+        }
+
+        // Check URL for category param
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryParam = urlParams.get('category');
+        if (categoryParam) {
+            currentCategory = categoryParam;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = document.getElementById('btn-' + categoryParam);
+            if (btn) btn.classList.add('active');
+        }
+
+        renderRestaurants();
+
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>

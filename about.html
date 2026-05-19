@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - FoodDash</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .about-hero {
+            margin-top: 70px;
+            padding: 100px 5%;
+            background: var(--gradient-hero);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -100px; left: -100px;
+        }
+        .about-hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        .about-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        .about-section {
+            padding: 80px 5%;
+            background: white;
+        }
+        .about-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+        .about-content h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .about-content p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        .values-section {
+            padding: 80px 5%;
+            background: var(--light);
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+        .value-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.4s;
+        }
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .value-icon {
+            width: 70px; height: 70px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: white;
+        }
+        .value-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .value-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        .team-section {
+            padding: 80px 5%;
+            background: white;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+        .team-card {
+            text-align: center;
+        }
+        .team-card img {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        .team-card h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .team-card p {
+            color: var(--gray);
+            font-size: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 { font-size: 36px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="../index.html" class="logo"><i class="fas fa-bolt"></i> FoodDash</a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="cafes.html">Restaurants</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-auth">
+            <a href="login.html" class="btn btn-outline">Sign In</a>
+            <a href="register.html" class="btn btn-primary">Sign Up</a>
+            <button class="cart-btn" onclick="location.href='cart.html'">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="about-hero">
+        <h1>Our Story</h1>
+        <p>We're on a mission to connect people with the best local food, delivered fast and fresh. Founded in 2024, FoodDash has grown from a small startup to serving thousands of happy customers daily.</p>
+    </div>
+
+    <section class="about-section">
+        <div class="about-grid">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=600" alt="Our Team">
+            </div>
+            <div class="about-content">
+                <h2>Why FoodDash?</h2>
+                <p>We believe everyone deserves access to delicious, high-quality food without the wait. Our platform connects you with the best local restaurants, ensuring every meal is prepared with care and delivered with speed.</p>
+                <p>With advanced logistics technology and a dedicated team of delivery partners, we've achieved an average delivery time of just 15 minutes. That's faster than cooking at home!</p>
+                <p>We're committed to supporting local businesses too. Every order you place helps a neighborhood restaurant thrive.</p>
+                <a href="cafes.html" class="btn btn-primary btn-lg" style="margin-top: 10px;">
+                    <i class="fas fa-utensils"></i> Order Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="section-header">
+            <h2>Our Values</h2>
+            <p>The principles that guide everything we do</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon" style="background: var(--gradient-1);">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Speed</h3>
+                <p>We understand hunger can't wait. Our optimized delivery network ensures your food arrives hot and fast.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon" style="background: var(--gradient-2);">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Quality</h3>
+                <p>We partner only with top-rated restaurants that meet our strict quality and hygiene standards.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon" style="background: var(--gradient-hero);">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Community</h3>
+                <p>We support local restaurants and create earning opportunities for delivery partners in every neighborhood.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="section-header">
+            <h2>Meet the Team</h2>
+            <p>The passionate people behind FoodDash</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200" alt="CEO">
+                <h3>Michael Chen</h3>
+                <p>Founder & CEO</p>
+            </div>
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200" alt="CTO">
+                <h3>Sarah Johnson</h3>
+                <p>Chief Technology Officer</p>
+            </div>
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200" alt="COO">
+                <h3>David Park</h3>
+                <p>Chief Operations Officer</p>
+            </div>
+            <div class="team-card">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200" alt="CMO">
+                <h3>Emily Rodriguez</h3>
+                <p>Chief Marketing Officer</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fas fa-bolt"></i> FoodDash</h3>
+                <p>Your favorite food delivery partner. Fresh, fast, and always on time.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <a href="about.html">About Us</a>
+                <a href="cafes.html">Restaurants</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <a href="contact.html">Contact Us</a>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Feedback</a>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Refund Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> 2026 FoodDash. All rights reserved.</p>
+            <div class="app-badges">
+                <a href="#" class="app-badge"><i class="fab fa-apple"></i> App Store</a>
+                <a href="#" class="app-badge"><i class="fab fa-google-play"></i> Play Store</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+        updateCartCount();
+    </script>
+</body>
+</html>
